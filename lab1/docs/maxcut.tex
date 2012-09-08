@@ -92,10 +92,7 @@ Algorithm R uses $n$\sidenote{Replace
 For the input file  pw09\_100.9.txt with $t=100$ runs, we found
 an average cutsize of $C=12343$, roughly $90.3$\% of the optimum
 $\operatorname{OPT} = 13659$.
-The distribution of cutsizes looks as follows:\sidenote{Display your
-  cutsizes as a histogram. Use whatever software you like to produce
-  the image; the placeholder image on the left is constructed in the
-  \LaTeX\ source.}
+The distribution of cutsizes looks as follows:
 
 \medskip
 
@@ -220,10 +217,140 @@ The distribution of cutsizes looks as follows:\sidenote{Display your
 \end{tikzpicture}
 
 \item
-For the input file matching\_1000.txt
-$[\ldots]$\sidenote{Perform the same analysis for 
-    matching\_1000.txt. This involves thinking to determine OPT.}
+For the input file matching\_1000.txt with $t=100$ runs, we found an average
+cutsize of $C=250$, roughly $50$\% of the optimum $\operatorname{OPT} = 500$.
+
+The optimum was derived by alanyzing the input. The input consists of $500$
+pairs of vertices, each pair is connected by one edge of weight $1$. There are
+no edges between any of the pairs. By choosing one, and only one, vertex from
+each pair the maxcut becomes $500$, $500$ pairs and in each pair the edge is
+part of the cut, which is also the sum of all edges and the optimum result.
+
+The distribution of cutsizes looks as follows:
+
+\medskip
+
+\noindent
+\begin{tikzpicture}
+\begin{axis}[
+  height= 5cm,
+  ybar interval,
+  xmin = 0,  xmax = 500,
+  xtick =       {0   ,   250,   500},
+  xticklabels = {$0$, $250$,   OPT},
+  x tick label as interval = false,
+  scaled ticks = false
+]
+    \addplot+[hist={bins=100}]
+        table[y index=0] {% output of 
+          % perl -e "for $i (1..100) { system 'python sol/rmaxcut.py < data/pw09_100.9.txt '}"
+%\input{../MCR_res.tex}
+%\input{thore_res.txt}
+243
+267
+253
+247
+236
+240
+248
+248
+249
+252
+253
+237
+252
+236
+248
+237
+246
+242
+252
+245
+230
+241
+265
+250
+254
+250
+236
+252
+237
+239
+241
+255
+246
+253
+253
+261
+263
+261
+259
+257
+250
+263
+257
+234
+247
+250
+270
+243
+254
+258
+239
+262
+249
+255
+235
+271
+248
+224
+248
+242
+245
+263
+253
+249
+241
+244
+236
+255
+270
+241
+263
+245
+259
+237
+251
+236
+256
+256
+265
+257
+259
+249
+244
+262
+257
+225
+245
+252
+242
+241
+249
+253
+265
+234
+259
+255
+271
+248
+252
+251
+    };
+\end{axis}
+\end{tikzpicture}
 \end{enumerate}
+
 \paragraph{Analysis of performance guarantee}
 
 Clearly, Algorithm R performs quite badly on input 
