@@ -377,8 +377,11 @@ Set $X_{uv}=1$ if $uv$ crosses the cut, i.e., $u\in A$ and $v\notin A$
 or $u\notin A$ and $v\in A$.
 Otherwise, $X_{uv} = 0$.
 
-Then, $\Pr(X_{uv} = 1) = \Pr(u \in A) \cdots \Pr(v \notin A) + \Pr(u \notin A) \cdot Pr(v \in A) = \frac{1}{2} \cdot \frac{1}{2} + \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{2}$.
-Now, $E[C]=[\ldots]$ Finally, we have 
+Then, $\Pr(X_{uv} = 1) = \Pr(u \in A) \cdot \Pr(v \notin A) + \Pr(u \notin A)
+\cdot Pr(v \in A) = \frac{1}{2} \cdot \frac{1}{2} + \frac{1}{2} \cdot
+\frac{1}{2} = \frac{1}{2}$ because $u \in A$ and $v \in A$ are independent.
+Now, \[ E[C]= E(\sum_{uv} X_{uv}w(uv)) = \sum_{uv}E(X_{uv})\cdot{}w(uv) =
+\sum_{uv}\frac{1}{2}\cdot{}w(uv) = \frac{1}{2}\cdot{}W \] Finally, we have
 \(E[C]\geq [\ldots]\cdot \text{OPT}\) because clearly
 $[\ldots]$.\sidenote{Fill in the missing blanks in this paragraph.
   Your calculations and arguments need to include phrases like
