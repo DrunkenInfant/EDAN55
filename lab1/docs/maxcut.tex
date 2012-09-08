@@ -357,7 +357,7 @@ Clearly, Algorithm R performs quite badly on input
   matching\_1000.txt.
 We will show that it can perform \emph{no worse} than that, i.e., we
 will establish that in expectation, the cutsize $C$ satisfies $C \geq
-[\ldots]\cdot \operatorname{OPT}$.\sidenote{Replace [\ldots] by the
+\frac{1}{2}\cdot \operatorname{OPT}$.\sidenote{Replace [\ldots] by the
   right constant}
 
 
@@ -377,7 +377,7 @@ Set $X_{uv}=1$ if $uv$ crosses the cut, i.e., $u\in A$ and $v\notin A$
 or $u\notin A$ and $v\in A$.
 Otherwise, $X_{uv} = 0$.
 
-Then, $\Pr(X_{uv} = 1) = [\ldots]$.
+Then, $\Pr(X_{uv} = 1) = \Pr(u \in A) \cdots \Pr(v \notin A) + \Pr(u \notin A) \cdot Pr(v \in A) = \frac{1}{2} \cdot \frac{1}{2} + \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{2}$.
 Now, $E[C]=[\ldots]$ Finally, we have 
 \(E[C]\geq [\ldots]\cdot \text{OPT}\) because clearly
 $[\ldots]$.\sidenote{Fill in the missing blanks in this paragraph.
