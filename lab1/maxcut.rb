@@ -1,21 +1,5 @@
 require 'set'
 
-class Vertex
-	attr_accessor :id, :edges
-	
-	def initialize(id)
-		@id = id
-	end
-
-	def eql?(other)
-		@id == other.id
-	end
-
-	def hash
-		@id.hash
-	end
-end
-
 class Edge
 	attr_accessor :v1, :v2, :weight
 	def initialize(v1, v2, weight)
@@ -34,8 +18,10 @@ edges = Set.new
 File.foreach(ARGV[0]){ |line|
 	values = line.split(' ')
 	if values.size == 3
-		v1 = Vertex.new(values[0])
-		v2 = Vertex.new(values[1])
+		# v1 = Vertex.new(values[0])
+		# v2 = Vertex.new(values[1])
+		v1 = values[0].to_i
+		v2 = values[1].to_i
 		vertices.add(v1)
 		vertices.add(v2)
 		edges.add(Edge.new(v1, v2, values[2].to_i))
@@ -43,19 +29,24 @@ File.foreach(ARGV[0]){ |line|
 }
 results = []
 100.times do
+	# Construct the set of selected vertecies
 	v_a = Set.new
 	vertices.each{ |v|
+		# Select by randomly decide for each vertex
 		if [true,false].sample
 			v_a.add(v)
 		end
 	}
+	# Construct a set of the vertecies not selected
 	v_b = vertices - v_a
+	# Contruct the set of edges cosituting the cut
 	cut = Set.new
 	edges.each { |e|
 		if e.between?(v_a, v_b)
 			cut.add(e)
 		end
 	}
+	# Calculate the total weight of the cut
 	total_weight = 0
 	cut.each { |e|
 		total_weight += e.weight
