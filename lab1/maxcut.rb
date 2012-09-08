@@ -52,5 +52,5 @@ results = []
 	results.push(total_weight)
 end
 puts results
-avg = results.inject { |sum, res| sum += res } / results.size
+avg = results.inject { |sum, res| sum += res }.to_f / results.size
 puts "Average: #{avg}"
