@@ -79,7 +79,7 @@ The running time of algorithm~R is $O(n + m)$.
 
 \subsection{Randomness}
 
-Algorithm R uses $[\ldots]$\sidenote{Replace
+Algorithm R uses $n$\sidenote{Replace
   $[\ldots]$ by a function of $n$ and/or $m$. Do not use asymptotic
   notation. This is supposed to be easy.} random bits.
 
@@ -90,7 +90,7 @@ Algorithm R uses $[\ldots]$\sidenote{Replace
 \begin{enumerate}
 \item
 For the input file  pw09\_100.9.txt with $t=100$ runs, we found
-an average cutsize of $C=[\ldots]$, roughly $[\ldots]$\% of the optimum
+an average cutsize of $C=6267$, roughly $45.9$\% of the optimum
 $\operatorname{OPT} = 13659$.
 The distribution of cutsizes looks as follows:\sidenote{Display your
   cutsizes as a histogram. Use whatever software you like to produce
@@ -115,106 +115,106 @@ The distribution of cutsizes looks as follows:\sidenote{Display your
           % perl -e "for $i (1..100) { system 'python sol/rmaxcut.py < data/pw09_100.9.txt '}"
 %\input{../MCR_res.txt}
 %\input{thore_res.txt}
-7610
-7249
-5768
-6402
-7815
-7619
-6384
-5406
-5745
-5841
-7395
-7642
-5213
-5903
-5793
-6445
-3286
-4308
-5656
-6782
-8526
-7504
-5310
-6852
-6586
-5104
-6294
-4795
-5437
-4900
-6833
-6285
-5547
-6978
-4354
-6937
-6922
-4720
-5332
-5526
-5085
-5714
-3857
-6345
-6166
-6072
-7533
-4729
-4638
-5946
-7866
-5479
-5693
-5252
-3982
-6803
-7229
-8244
-7298
-7048
-6342
-7310
-6030
-4111
-5915
-4767
-6123
-6037
-6753
-7109
-7129
-6987
-4711
-7109
-3916
-10289
-6587
-5911
-9150
-5242
-6075
-5126
-4754
-8549
-6342
-5985
-5374
-6793
-7408
-8328
-4662
-5207
-7430
-8268
-8000
-5879
-5164
-6512
-4726
-6293
+6601
+6360
+7435
+5163
+6243
+6238
+4447
+4245
+4865
+4434
+6759
+4696
+4404
+5895
+4539
+5883
+7233
+6595
+6377
+3940
+7087
+6714
+6573
+8013
+5021
+3016
+6607
+5478
+8264
+7157
+6895
+6381
+4773
+6876
+5892
+7884
+6051
+6000
+5358
+6332
+7908
+5995
+5140
+7700
+6289
+6366
+5348
+6391
+8456
+7597
+5192
+6370
+6906
+6821
+4898
+6886
+6843
+7161
+8608
+5782
+3935
+4584
+5079
+5031
+5276
+5428
+4961
+6816
+6822
+7309
+5930
+7588
+7370
+8030
+8275
+9347
+7145
+7005
+5570
+8260
+6100
+8132
+6514
+7825
+7140
+7945
+6576
+8313
+5103
+5652
+6747
+5912
+4424
+5722
+4396
+5538
+6281
+5248
+6176
+5898
     };
 \end{axis}
 \end{tikzpicture}
@@ -240,7 +240,7 @@ Let $W$ denote the total weight of the edges of $G$, i.e.,
 \[ W= \sum_{e\in E} w(e)\,.\]
 
 Then,
-\begin{equation}\label{eq: E[C]}
+\begin{equation}
 E[C] = \textstyle\frac{1}{2}\cdot W\,.
 \end{equation}
 
@@ -336,7 +336,7 @@ Goemans and Williamson,\sidenote{M.\ X.\ Goemans and D.\ P.\
   \emph{J.\ Assoc.\ Comput.\ Mach.}, 42(6):1115--1145, 1995.}
 which improved the approximation factor to $0.87856$.
 H\aa{}stad has shown that no algorithm can approximate the maxcut
-better than $16/17\sim 0.941176$ unless P equals NP. Khot has shown
+better than $16/17\sim 0.941176$ unless P equals NP\@. Khot has shown
 that the Goemans--Williamson bound is essentially optimal under the
 \emph{Unique Games Conjecture}.
 
