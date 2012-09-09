@@ -79,9 +79,7 @@ The running time of algorithm~R is $O(n + m)$.
 
 \subsection{Randomness}
 
-Algorithm R uses $n$\sidenote{Replace
-  $[\ldots]$ by a function of $n$ and/or $m$. Do not use asymptotic
-  notation. This is supposed to be easy.} random bits.
+Algorithm R uses $n$ random bits.
 
 \subsection{Solution quality}
 
@@ -357,8 +355,7 @@ Clearly, Algorithm R performs quite badly on input
   matching\_1000.txt.
 We will show that it can perform \emph{no worse} than that, i.e., we
 will establish that in expectation, the cutsize $C$ satisfies $C \geq
-\frac{1}{2}\cdot \operatorname{OPT}$.\sidenote{Replace [\ldots] by the
-  right constant}
+\frac{1}{2}\cdot \operatorname{OPT}$.
 
 
 We will view $C$ as a random variable that gives the size of the cut
@@ -383,13 +380,7 @@ Then, $\Pr(X_{uv} = 1) = \Pr(u \in A) \cdot \Pr(v \notin A) + \Pr(u \notin A)
 Now, \[ E[C]= E(\sum_{uv} X_{uv}w(uv)) = \sum_{uv}E(X_{uv})\cdot{}w(uv) =
 \sum_{uv}\frac{1}{2}\cdot{}w(uv) = \frac{1}{2}\cdot{}W \] Finally, we have
 \(E[C]\geq \frac{1}{2} \cdot \text{OPT}\) because clearly
-$\text{OPT} \leq W$.\sidenote{Fill in the missing blanks in this paragraph.
-  Your calculations and arguments need to include phrases like
-  ``because BLA and BLA are independent'' or ``disjoint,'' and ``by
-  linearity of expectation'' and ``because the weights are positive.''
-
-}
-
+$\text{OPT} \leq W$, as the weights are positive.
 
 \newpage
 \section{Optional: Derandomising Algorithm R}
