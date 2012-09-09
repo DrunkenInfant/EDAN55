@@ -9,7 +9,8 @@ class Edge
 	end
 
 	def between?(set1, set2)
-		(set1.include? @v1 and set2.include? @v2) or (set2.include? @v1 and set1.include? @v2)
+		(set1.include? @v1 and set2.include? @v2)\
+			or (set2.include? @v1 and set1.include? @v2)
 	end
 end
 

@@ -5,6 +5,8 @@
 
 \usepackage{pgfplots}
 \pgfplotsset{width=\textwidth,compat=1.5.1}
+\usepackage{listings}
+\lstset{language=Ruby,tabsize=4,basicstyle=\footnotesize,frame=single,breaklines=true,showstringspaces=false}
 
 \newtheorem{claim}{Claim}[section]
 \title{\sf Approximation Algorithm for Maximum Cut}
@@ -381,6 +383,11 @@ Now, \[ E[C]= E(\sum_{uv} X_{uv}w(uv)) = \sum_{uv}E(X_{uv})\cdot{}w(uv) =
 \sum_{uv}\frac{1}{2}\cdot{}w(uv) = \frac{1}{2}\cdot{}W \] Finally, we have
 \(E[C]\geq \frac{1}{2} \cdot \text{OPT}\) because clearly
 $\text{OPT} \leq W$, as the weights are positive.
+
+\subsection{Code}
+
+The code implementing the algorithm R:
+\lstinputlisting{../maxcut.rb}
 
 \newpage
 \section{Optional: Derandomising Algorithm R}
