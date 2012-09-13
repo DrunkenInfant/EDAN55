@@ -243,9 +243,6 @@ The distribution of cutsizes looks as follows:
 ]
     \addplot+[hist={bins=100}]
         table[y index=0] {% output of 
-          % perl -e "for $i (1..100) { system 'python sol/rmaxcut.py < data/pw09_100.9.txt '}"
-%\input{../MCR_res.tex}
-%\input{thore_res.txt}
 243
 267
 253
@@ -378,10 +375,11 @@ Otherwise, $X_{uv} = 0$.
 
 Then, $\Pr(X_{uv} = 1) = \Pr(u \in A) \cdot \Pr(v \notin A) + \Pr(u \notin A)
 \cdot Pr(v \in A) = \frac{1}{2} \cdot \frac{1}{2} + \frac{1}{2} \cdot
-\frac{1}{2} = \frac{1}{2}$ because $u \in A$ and $v \in A$ are independent.
-Now, \[ E[C]= E(\sum_{uv} X_{uv}w(uv)) = \sum_{uv}E(X_{uv})\cdot{}w(uv) =
-\sum_{uv}\frac{1}{2}\cdot{}w(uv) = \frac{1}{2}\cdot{}W \] Finally, we have
-\(E[C]\geq \frac{1}{2} \cdot \text{OPT}\) because clearly
+\frac{1}{2} = \frac{1}{2}$ because $u \in A$ and $v \in A$ are independent and
+$u \in A$ and $u \notin A$ are disjunct.  Now, \[ E[C]= E(\sum_{uv}
+X_{uv}w(uv)) = \sum_{uv}E(X_{uv})\cdot{}w(uv) = \sum_{uv}Pr(X_{uv} =
+1)\cdot{}w(uv) = \sum_{uv}\frac{1}{2}\cdot{}w(uv) = \frac{1}{2}\cdot{}W \]
+Finally, we have \(E[C]\geq \frac{1}{2} \cdot \text{OPT}\) because clearly
 $\text{OPT} \leq W$, as the weights are positive.
 
 \subsection{Code}
