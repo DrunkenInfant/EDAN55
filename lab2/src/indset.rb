@@ -1,0 +1,2 @@
+
+puts 'Independent Set!'
