@@ -12,17 +12,44 @@ class Graph
 		end
 	end
 
+	def delete(v)
+		@slist[v.neighbourhood.size].delete(v)
+		if @slist[v.neighbourhood.size].empty?
+			@slist.delete(v.neighbourhood.size)
+		end
+	end
+
 	def -(vset)
 		removed = Set.new
 		vset.each { |v|
-			if @slist[v.neighbourhood.size]
-				@slist[v.neighbourhood.size].delete(v)
-				if @slist[v.neighbourhood.size].empty?
-					@slist.delete(v.neighbourhood.size)
+			delete(v)
+			v.neighbourhood.each { |n|
+				if not vset.include? n
+					delete(n)
+					n.remove_neighbour(v)
+					add(n)
 				end
-			end
+			}
 		}
 		self
+	end
+
+	def restore(vset)
+		vset.each { |v|
+			v.neighbourhood.each { |n|
+				if include? n
+					delete(n)
+					n.add_neighbour(v)
+					add(n)
+				end
+			}
+			add(v)
+		}
+	end
+
+	def include?(v)
+		@slist.has_key?(v.neighbourhood.size) and\
+		 @slist[v.neighbourhood.size].include? v
 	end
 
 	def first
@@ -61,7 +88,7 @@ class Vertex
 
 	def initialize(id)
 		@id = id
-		@neighbours = []
+		@neighbours = Set.new
 		@neighbours << self
 	end
 
@@ -72,6 +99,10 @@ class Vertex
 	def add_neighbour(v)
 		@neighbours << v
 		self
+	end
+
+	def remove_neighbour(n)
+		@neighbours.delete(n)
 	end
 
 	def <=>(other)

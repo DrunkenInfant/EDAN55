@@ -2,25 +2,25 @@ require 'set'
 require './graph.rb'
 
 def max_ind_set(graph)
-	#puts "NEW GRAPH"
-	puts "new iter, #{graph.size}"
-	#puts graph.to_a
-
 	if graph.empty?
 		#puts "done"
 		return 0
 	end
 	first = graph.first
 	if first.neighbourhood.size == 1
-		puts "vi kom hit: #{first}"
-		return 1 + max_ind_set(graph - [first])
+		#puts "vi kom hit: #{first}"
+		val = 1 + max_ind_set(graph - [first])
+		graph.restore(Set.new([first]))
+		return val
 	end
 
 	u = graph.last
+	#puts "selecting: #{u}"
 	val1 = 1 + max_ind_set(graph - u.neighbourhood)
-	u.neighbourhood.each { |v| graph.add(v) }
-	val2 = max_ind_set(graph - [u])
-	graph.add(u)
+
+	graph.restore(u.neighbourhood)
+	val2 = max_ind_set(graph - Set.new([u]))
+	graph.restore(Set.new([u]))
 	return [val1, val2].max
 end
 
@@ -28,8 +28,7 @@ graph = Graph.new
 vertices = []
 
 # Read input
-n = File.open(ARGV[0], &:readline).to_i
-n.times { |i|
+File.open(ARGV[0], &:readline).to_i.times { |i|
 	vertices.push(Vertex.new(i))
 }
 
