@@ -145,7 +145,7 @@ file & $|V|$ & $\alpha(G)$\\
   If $G$ doesn't have a vertex $v$ with exactly two neighbors, then we
   proceed just as in algorithm $R_1$.
  
- Argue the correctness of algorithm $R_2$, i.e. motivate why it always computes $\alpha(G)$.
+ Argue the correctness of algorithm $R_2$, i.e.\ motivate why it always computes $\alpha(G)$.
  
  Implement algorithm $R_2$ and run it on the instances
   data/g30.in, data/g40.in, $\ldots$, data/g120.in.
@@ -174,12 +174,14 @@ by Alice Cooper and Bob Marley\sidenote{Complete the report by filling
 Algorithm R1 correctly computes $\alpha(G)$ because $[\ldots]$.\sidenote{Fill in the $[\dots]$ with an argument why R1 indeed computes the size of the maximum independent set. Use as little mathematical notation as necessary. A ``proof'' is whatever convinces me.}
 
 R1 will compute incorrectly if and only if the neighbour of a vartex of degree
-$1$ is in the max ind set. The neighbour of a vertex with degree $1$ has $degree >
-1$. If it is in the max ind set the vertex and at least one more vertex is not
-in the $MIS$. If the vertex is in the $MIS$ only its neighbour is not in the set
-and its neighbours neighbour may be resulting in an identical graph except of
-one additional vertex left. Hence it must be at least as good to include any
-vertex with $degree == 1$.
+$1$, $v$, is in the $MIS$. The neighbour of $v$ has $degree > 1$, otherwise one
+of them but not both may be in the $MSI$ and it wont affect the result which
+one. If the naighbour of $v$ is in the $MSI$, $v$ and at least one more vertex
+is not in the $MIS$. If $v$ is in the $MIS$ only its neighbour is not in the
+set and its neighbours neighbours may be, resulting in an identical graph
+except for at least one additional vertex if $v$ is in the $MSI$. Hence it must
+be at least as good to include any vertex with $degree == 1$.
+
 \noindent
 Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
 
