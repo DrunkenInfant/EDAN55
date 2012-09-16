@@ -174,20 +174,20 @@ by Alice Cooper and Bob Marley\sidenote{Complete the report by filling
 Algorithm R1 correctly computes $\alpha(G)$ because $[\ldots]$.\sidenote{Fill in the $[\dots]$ with an argument why R1 indeed computes the size of the maximum independent set. Use as little mathematical notation as necessary. A ``proof'' is whatever convinces me.}
 
 Algorithm R1 will compute $\alpha(G)$ incorrectly if and only if the neighbour,
-$n$, of a vertex of degree $1$, $v$, is in the $MIS$. The neighbour of $v$ has
-$degree > 1$, otherwise one of them but not both may be in the $MIS$ and it
-wont affect the result which one.
+$n$, of a vertex of degree $1$, $v$, is in an $IS$ larger than any $IS$ containing $v$.
+If the degree of $n$ is $1$ either one of them is in the $MSI$.
 
+If the degree of $n$ is larger than $1$ and:
 \begin{itemize}
-	\item If the neighbour of $v$ is in the $MIS$, $v$ and at least one more
-		vertex is not in the $MIS$.
-	\item If $v$ is in the $MIS$ only its neighbour is not in the set and its
-		neighbours neighbours may be.
+	\item $n$ is in the $MIS$, $v$ and at least one more vertex is not in the
+		$MIS$. The set of remaining vertices is $V - N(n)$.
+	\item $v$ is in the $MIS$ only $n$ can not be in the $MSI$. The set of
+		remaining vertices is $V - n - v)$.
 \end{itemize}
 
-Both cases will result in an identical graph with the exception that in case $v$
-is in the $MIS$ at least one more vertex is still in the graph. Hence it must be
-at least as good to include any vertex with $degree == 1$.
+Since ${v,n} \subset N(n) \Rightarrow V - N(n) \subset V - n - v$ the $IS$
+containing $v$ is at least as large as the $IS$ containing $n$. Clearly $MIS$
+of $V - w$ can not be larger than $MSI$ of $V$ for any vertex $w$.
 
 \noindent
 Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
@@ -266,7 +266,7 @@ Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
 \end{tikzpicture}
 
 The running times of algorithm~$R_0$, $R_1$, and $R_2$ appear to be
-$O(1.1653^n)[\ldots],[\ldots],$ and $[\ldots]$, respectively.\sidenote{Replace
+$[\ldots],O(1.1653^n),$ and $[\ldots]$, respectively.\sidenote{Replace
   the $[\ldots]$ by a function of $n$ on the form $O(c^n)$.
   Use your measurements on the run time to estimate $c$ in the three
   cases.}.
@@ -295,7 +295,7 @@ $d_{\mbox{max}}$ is at worst $3$.
 
 \paragraph{Worst Case Upper Bound}
 The running times of algorithm~$R_0$, $R_1$, and $R_2$ are in
-$[\ldots],[\ldots],$ and $[\ldots]$, respectively.\sidenote{Replace
+$O(1.61803^n),O(1.46557^n),$ and $O(1.38028^n)$, respectively.\sidenote{Replace
   the $[\ldots]$ by a function of $n$ on the form $O(c^n)$.
   Use the recursive bounds you've derived above.
   \emph{Hint: A recurrence of the form $T(n)\leq \sum_{i=1}^k
