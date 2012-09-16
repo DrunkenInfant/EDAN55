@@ -22,7 +22,7 @@ class Graph
 	def -(vset)
 		vset.each { |v|
 			delete(v)
-			v.neighbourhood.each { |n|
+			v.neighbours.each { |n|
 				if not vset.include? n
 					delete(n)
 					n.remove_neighbour(v)
@@ -34,19 +34,18 @@ class Graph
 	end
 
 	def +(v)
-		v.neighbourhood.each { |n|
-			if not n == v
-				delete(n)
-				n.add_neighbour(v)
-				add(n)
-			end
+		v.neighbours.each { |n|
+			delete(n)
+			n.add_neighbour(v)
+			add(n)
 		}
+		add(v)
 		self
 	end
 
 	def restore(vset)
 		vset.each { |v|
-			v.neighbourhood.each { |n|
+			v.neighbours.each { |n|
 				if include? n
 					delete(n)
 					n.add_neighbour(v)
@@ -81,28 +80,36 @@ class Graph
 	def empty?
 		@slist.empty?
 	end
+
+	def to_s
+		vertecies = []
+		@slist.each_value { |vset|
+			vertecies.concat(vset.to_a)
+		}
+		vertecies.to_s
+	end
+
 end
 
 class Vertex
-	attr_accessor :id, :neighbourhood
+	attr_accessor :id, :neighbourhood, :neighbours
 
 	def initialize(id)
 		@id = id
+		@neighbours = Set.new
 		@neighbourhood = Set.new
 		@neighbourhood << self
 	end
 
-	def neighbours()
-		@neighbourhood - [self]
-	end
-
 	def add_neighbour(v)
 		@neighbourhood << v
+		@neighbours << v
 		self
 	end
 
 	def remove_neighbour(n)
 		@neighbourhood.delete(n)
+		@neighbours.delete(n)
 	end
 
 	def <=>(other)

@@ -1,7 +1,6 @@
 require 'set'
 require './graph.rb'
 $times = 0
-$bottom = 0
 $next_vertex_id = 1
 def max_ind_set(graph)
 	$times += 1
@@ -59,7 +58,6 @@ end
 def max_ind_set2(graph)
 	$times += 1
 	if graph.empty?
-		$bottom += 1
 		return 0
 	end
 
@@ -83,10 +81,8 @@ def max_ind_set2(graph)
 					z.add_neighbour(n)
 				end
 			}
-			graph - v.neighbourhood
-			val = max_ind_set2(graph + z)
-			(graph - [z])
-			graph.restore(v.neighbourhood)
+			val = 1 + max_ind_set2(graph - v.neighbourhood + z)
+			(graph - [z]).restore(v.neighbourhood)
 			return val
 		end
 	end
@@ -139,5 +135,4 @@ start = Time.now
 puts max_ind_set2(graph)
 stop = Time.now
 puts "Time: #{stop - start}"
-puts $times
-puts $bottom
+puts "Recursions: #{$times}"
