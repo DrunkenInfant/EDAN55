@@ -173,6 +173,13 @@ by Alice Cooper and Bob Marley\sidenote{Complete the report by filling
 \subsection{Correctness}
 Algorithm R1 correctly computes $\alpha(G)$ because $[\ldots]$.\sidenote{Fill in the $[\dots]$ with an argument why R1 indeed computes the size of the maximum independent set. Use as little mathematical notation as necessary. A ``proof'' is whatever convinces me.}
 
+R1 will compute incorrectly if and only if the neighbour of a vartex of degree
+$1$ is in the max ind set. The neighbour of a vertex with degree $1$ has $degree >
+1$. If it is in the max ind set the vertex and at least one more vertex is not
+in the $MIS$. If the vertex is in the $MIS$ only its neighbour is not in the set
+and its neighbours neighbour may be resulting in an identical graph except of
+one additional vertex left. Hence it must be at least as good to include any
+vertex with $degree == 1$.
 \noindent
 Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
 
