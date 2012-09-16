@@ -1,9 +1,8 @@
 class Graph
-
 	def initialize()
 		@slist = Hash.new
 	end
-
+	
 	def add(v)
 		if not @slist[v.neighbourhood.size]
 			@slist[v.neighbourhood.size] = Set.new([v])
@@ -80,15 +79,6 @@ class Graph
 	def empty?
 		@slist.empty?
 	end
-
-	def to_s
-		vertecies = []
-		@slist.each_value { |vset|
-			vertecies.concat(vset.to_a)
-		}
-		vertecies.to_s
-	end
-
 end
 
 class Vertex
@@ -122,13 +112,5 @@ class Vertex
 
 	def eql?(other)
 		@id == other.id
-	end
-
-	def to_s
-		neighbours_id = []
-		@neighbours.each { |n|
-			neighbours_id << n.id
-		}
-		"#{id}:#{neighbours_id.to_s}"
 	end
 end
