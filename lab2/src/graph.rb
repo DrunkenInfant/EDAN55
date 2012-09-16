@@ -20,7 +20,6 @@ class Graph
 	end
 
 	def -(vset)
-		removed = Set.new
 		vset.each { |v|
 			delete(v)
 			v.neighbourhood.each { |n|
@@ -30,6 +29,17 @@ class Graph
 					add(n)
 				end
 			}
+		}
+		self
+	end
+
+	def +(v)
+		v.neighbourhood.each { |n|
+			if not n == v
+				delete(n)
+				n.add_neighbour(v)
+				add(n)
+			end
 		}
 		self
 	end
@@ -52,61 +62,51 @@ class Graph
 		 @slist[v.neighbourhood.size].include? v
 	end
 
+	def has_neighbourhood(size)
+		@slist.has_key? size
+	end
+
+	def get_vertex_by_neighbourhood_size(size)
+		@slist[size].first
+	end
+
 	def first
-		@slist[@slist.keys.min].to_a.first
+		@slist[@slist.keys.min].first
 	end
 
 	def last
-		@slist[@slist.keys.max].to_a.last
+		@slist[@slist.keys.max].first
 	end
 
 	def empty?
 		@slist.empty?
 	end
-
-	def size
-		self.to_a.size
-	end
-
-	def to_a
-		vertecies = []
-		@slist.each { |key, set|
-			vertecies.concat(set.to_a)
-		}
-		vertecies
-	end
-
-	def to_s
-		
-		self.to_a.to_s
-	end
-
 end
 
 class Vertex
-	attr_accessor :id, :neighbours
+	attr_accessor :id, :neighbourhood
 
 	def initialize(id)
 		@id = id
-		@neighbours = Set.new
-		@neighbours << self
+		@neighbourhood = Set.new
+		@neighbourhood << self
 	end
 
-	def neighbourhood()
-		@neighbours
+	def neighbours()
+		@neighbourhood - [self]
 	end
 
 	def add_neighbour(v)
-		@neighbours << v
+		@neighbourhood << v
 		self
 	end
 
 	def remove_neighbour(n)
-		@neighbours.delete(n)
+		@neighbourhood.delete(n)
 	end
 
 	def <=>(other)
-		@neighbours.size - other.neighbours.size
+		@neighbourhood.size - other.neighbourhood.size
 	end
 
 	def hash
