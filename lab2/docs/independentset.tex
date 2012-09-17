@@ -172,20 +172,20 @@ by Tommy Ivarsson and Oscar Olsson
 Algorithm R1 correctly computes $\alpha(G)$ because $[\ldots]$.\sidenote{Fill in the $[\dots]$ with an argument why R1 indeed computes the size of the maximum independent set. Use as little mathematical notation as necessary. A ``proof'' is whatever convinces me.}
 
 Algorithm R1 will compute $\alpha(G)$ incorrectly if and only if the neighbour,
-$n$, of a vertex of degree $1$, $v$, is in the $MIS$. The neighbour of $v$ has
-$degree > 1$, otherwise one of them but not both may be in the $MIS$ and it
-wont affect the result which one.
+$n$, of a vertex of degree $1$, $v$, is in an $IS$ larger than any $IS$ containing $v$.
+If the degree of $n$ is $1$ either one of them is in the $MSI$.
 
+If the degree of $n$ is larger than $1$ and:
 \begin{itemize}
-	\item If the neighbour of $v$ is in the $MIS$, $v$ and at least one more
-		vertex is not in the $MIS$.
-	\item If $v$ is in the $MIS$ only its neighbour is not in the set and its
-		neighbours neighbours may be.
+	\item $n$ is in the $MIS$, $v$ and at least one more vertex is not in the
+		$MIS$. The set of remaining vertices is $V - N(n)$.
+	\item $v$ is in the $MIS$ only $n$ can not be in the $MSI$. The set of
+		remaining vertices is $V - n - v)$.
 \end{itemize}
 
-Both cases will result in an identical graph with the exception that in case $v$
-is in the $MIS$ at least one more vertex is still in the graph. Hence it must be
-at least as good to include any vertex with $degree == 1$.
+Since ${v,n} \subset N(n) \Rightarrow V - N(n) \subset V - n - v$ the $IS$
+containing $v$ is at least as large as the $IS$ containing $n$. Clearly $MIS$
+of $V - w$ can not be larger than $MSI$ of $V$ for any vertex $w$.
 
 \noindent
 Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
@@ -217,10 +217,21 @@ Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
 ]
     \addplot[color=black, mark=x] 
 	coordinates {
+<<<<<<< HEAD
 	(30, 9.8224)
 	(40, 12.021)
 	(50, 13.925)
 	(60, 15.961)
+=======
+	%(30, 100)
+	(30, 9.8224)
+	%(40, 200)
+	(40, 12.0208)
+	%(50, 300)
+	(50, 13.9247)
+	%(60, 400)
+	(60, 15.9607)
+>>>>>>> d6b8cc5fee1f1609d265e9b0c630b7a39d2b1279
     };
     \addlegendentry{R0}
 
@@ -247,6 +258,7 @@ Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
 
     \addplot[color=black, mark=*] 
 	coordinates {
+<<<<<<< HEAD
 	(30, 3.2958)
 	(40, 5.2883)
 	(50, 7.0220)
@@ -256,6 +268,27 @@ Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
 	(90, 12.448)
 	(100, 13.800)
 	(110, 14.965)
+=======
+	%(30, 30)
+	(30, 3.2958)
+	%(40, 60)
+	(40, 5.2883)
+	%(50, 90)
+	(50, 7.0220)
+	%(60, 120)
+	(60, 8.6928)
+	%(70, 150)
+	(70, 10.0023)
+	%(80, 180)
+	(80, 11.3911)
+	%(90, 210)
+	(90, 12.4480)
+	%(100, 240)
+	(100, 13.8001)
+	%(110, 270)
+	(110, 14.9648)
+	%(120, 300)
+>>>>>>> d6b8cc5fee1f1609d265e9b0c630b7a39d2b1279
 	(120, 16.014)
     };
     \addlegendentry{R2}
@@ -264,7 +297,7 @@ Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
 \end{tikzpicture}
 
 The running times of algorithm~$R_0$, $R_1$, and $R_2$ appear to be
-$O(1.1653^n)[\ldots],[\ldots],$ and $[\ldots]$, respectively.\sidenote{Replace
+$O(1.2253^n), O(1.1653^n),$ and $O(1.1537^n)$, respectively.\sidenote{Replace
   the $[\ldots]$ by a function of $n$ on the form $O(c^n)$.
   Use your measurements on the run time to estimate $c$ in the three
   cases.}.
@@ -280,17 +313,20 @@ T_0(n) &\leq\max(T_0(n-1), T_0(n-1)+T_0(n-1-d_{\mbox{max}})) \\ &\leq T_0(n-1)+T
 with $d_{\mbox{max}}$ the degree of the vertex we branch on. The hard part is the one when there are no isolated vertices, in which case the vertex $u$ we are branching on has at least one neighbor. 
 
 For R1 we have that\sidenote{Derive similar recursive bounds on $T_1(n)$ and $T_2(n)$.}
- \[
- T_1(n)=[\ldots]
- \]
+\begin{align*}
+	 T_1(n) &\leq\max(T_1(n-1), T_1(n-2), T(n-1)+T_1(n-1-d_{\mbox{max}})) \\ &\leq T_1(n-1)+T_1(n-3)
+\end{align*}
+The hard part is the one when there are no isolated vertices and no vertices of degree $1$. $d_{\mbox{max}}$ is at worst $3$.
 
 For R2 we have that
- \[
- T_2(n)=[\ldots]
- \]
+\begin{align*}
+	T_2(n) &\leq\max(T_2(n-1), T_2(n-2), \max(T_2(n-3), T_2(n-2)), T_2(n-1) + T_2(n-1-d_{\mbox{max}})) \\ &\leq T_2(n-1) + T_2(n-4)
+\end{align*}
+$d_{\mbox{max}}$ is at worst $3$.
+
 \paragraph{Worst Case Upper Bound}
 The running times of algorithm~$R_0$, $R_1$, and $R_2$ are in
-$[\ldots],[\ldots],$ and $[\ldots]$, respectively.\sidenote{Replace
+$O(1.61803^n),O(1.46557^n),$ and $O(1.38028^n)$, respectively.\sidenote{Replace
   the $[\ldots]$ by a function of $n$ on the form $O(c^n)$.
   Use the recursive bounds you've derived above.
   \emph{Hint: A recurrence of the form $T(n)\leq \sum_{i=1}^k
