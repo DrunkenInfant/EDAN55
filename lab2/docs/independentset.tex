@@ -219,10 +219,14 @@ Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
 ]
     \addplot[color=black, mark=x] 
 	coordinates {
-	(30, 100)
-	(40, 200)
-	(50, 300)
-	(60, 400)
+	%(30, 100)
+	(30, 9.8224)
+	%(40, 200)
+	(40, 12.0208)
+	%(50, 300)
+	(50, 13.9247)
+	%(60, 400)
+	(60, 15.9607)
     };
     \addlegendentry{R0}
 
@@ -249,16 +253,26 @@ Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
 
     \addplot[color=black, mark=*] 
 	coordinates {
-	(30, 30)
-	(40, 60)
-	(50, 90)
-	(60, 120)
-	(70, 150)
-	(80, 180)
-	(90, 210)
-	(100, 240)
-	(110, 270)
-	(120, 300)
+	%(30, 30)
+	(30, 3.2958)
+	%(40, 60)
+	(40, 5.2883)
+	%(50, 90)
+	(50, 7.0220)
+	%(60, 120)
+	(60, 8.6928)
+	%(70, 150)
+	(70, 10.0023)
+	%(80, 180)
+	(80, 11.3911)
+	%(90, 210)
+	(90, 12.4480)
+	%(100, 240)
+	(100, 13.8001)
+	%(110, 270)
+	(110, 14.9648)
+	%(120, 300)
+	(120, 16.014)
     };
     \addlegendentry{R2}
 
@@ -266,7 +280,7 @@ Algorithm R2 correctly computes $\alpha(G)$ because $[\ldots]$.
 \end{tikzpicture}
 
 The running times of algorithm~$R_0$, $R_1$, and $R_2$ appear to be
-$[\ldots],O(1.1653^n),$ and $[\ldots]$, respectively.\sidenote{Replace
+$O(1.2253^n), O(1.1653^n),$ and $O(1.1537^n)$, respectively.\sidenote{Replace
   the $[\ldots]$ by a function of $n$ on the form $O(c^n)$.
   Use your measurements on the run time to estimate $c$ in the three
   cases.}.
