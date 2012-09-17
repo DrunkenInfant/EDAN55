@@ -20,8 +20,4 @@ end
 
 stop = Time.now
 puts "Time: #{stop - start}s"
-<<<<<<< HEAD
 puts "Recursions: #{$recursions}"
-=======
-puts "Recursions: #{$recursions}"
->>>>>>> d6b8cc5fee1f1609d265e9b0c630b7a39d2b1279
