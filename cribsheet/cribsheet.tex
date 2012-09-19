@@ -1,5 +1,8 @@
 \documentclass[a4paper]{report}
 
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
 \begin{document}
 
 \section{Randomisernade Algoritmer}
@@ -29,6 +32,61 @@ Rando algo kan vara användbara även om problemet inte är NP-hard, rand kan l�
 problem med mindre minne och ev snabbare än en deterministisk algoritm. I
 distribuerade system måste enheter komunicera mycket men med rand kan man
 förenkla det genom att minska mängden kommunikation och synkronisering. % TODO
+
+\subsection{Case study - Shared resource}
+\subsubsection{Problem}
+\begin{itemize}
+	\item Vi har $n$ processer och en gemensamm databas.
+	\item Alla processer vill komma åt databasen så ofta som  möjligt.
+	\item Databasen tillåter endast en process i taget.
+	\item Tiden är delad i rundor, diskret tid.
+	\item Processerna kan inte kommunicera med varandra.
+	\item Om två processer försöker komma åt databsen sammtidigt kommer de låsa
+		ute varandra.
+\end{itemize}
+       
+Hur ska processerna bete sig för att öka chansen att de får använda databasen?
+\subsubsection{Designing a solution}
+I början av varje runda försöker varje process med sannolikheten $p$ komma åt
+databasen. Detta är en enkel lösing och ska visa sig vara väldigt bra.
+
+\subsubsection{Analys av algoritmen}
+Vi vill ta reda på det optimala värdet på $p$. Det intuitiva fallet är $p = \frac{1}{n}$.
+
+Sannolikheten att en process för köra är $p \cdot P(<att inga andra processer
+forsoker anv.\ database>)$ eftersom dessa händelser är oberoende.
+\begin{equation}
+	\mbox{Sannolikheten att en process lyckas} = p \cdot (1 - p)^{n - 1} = f(p)
+\end{equation}
+
+Genom att derivera $f(p)$ och sätta till $0$ får man fram maximala värdret på
+$p$ vilket är $\frac{1}{n}$.
+
+Sannolikheten att en process lyckas
+\begin{equation}
+	f(\frac{1}{n}) = \frac{1}{n} \cdot (1 - \frac{1}{n})^{(n-1)} \geq
+	\frac{1}{n} \cdot \frac{1}{e} \leq \frac{1}{2n}\mbox{, eftersom} (1 -
+	\frac{1}{n})^{(n-1)} \geq \frac{1}{e}
+\end{equation}
+
+Sannolikheten att processen $i$ får köra i rundan $t$:
+\begin{equation}
+	Pr(S(i,t)) = \frac{1}{n}(1 - \frac{1}{n})^{(n-1)}
+\end{equation}
+Sannolikheten att processen, $i$, inte får köra under $t$ rundor
+\begin{equation}
+	Pr(F(i,t)) = (1 - Pr(S(i,t)))^t = (1 - \frac{1}{n}(1 -
+	\frac{1}{n})^{n-1})^t \leq (1 - \frac{1}{en})^t
+\end{equation}
+
+Så om vi sätter $t = roof(en)$ så
+\begin{equation}
+	Pr(F(i,t)) \leq (1 - \frac{1}{en})^{roof(en)} \leq (1 - \frac{1}{en})^{en} \leq
+	\frac{1}{e}
+\end{equation}
+Vilket betyder att sannolkheten att en process inte får tillgång till databasen
+under de första $en$ rundorna är mindre än $\frac{1}{e}$.
+
 
 \section{Approximerarnde Algoritmer}
 
