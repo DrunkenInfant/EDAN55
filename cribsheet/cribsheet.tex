@@ -5,63 +5,62 @@
 
 \begin{document}
 
-\section{Randomisernade Algoritmer}
+\section{Kapitel 13.1-13.2 - Randomized Algorithms}
 
-Something about random solutions.
+Det finns två typer av randomiserade algoritmer:
 \begin{itemize}
-	\item Vad är en randomiserande algoritm?
-	\item När använder man den?
-	\item Ett exempel.
+	\item Traditionella algoritmer som får slumpmässig input. Detta brukar kallas \emph{average-case analysis} eftersom man är intresserad av hur algoritmer presterar i medel istället för att som vanligt studera worst case input.
+	\item Algoritmer som tar slumpmässiga beslut för att lösa problem med worst case input.
 \end{itemize}
 
-\subsection{Average Case Analysis}
+Det är denna andra typ av randomized algoritm vi kommer att diskutera.
 
-\subsection{Algorithms That Behaves Randomly}
+\subsection{Användbarhet}
+Algoritmer som tar slumpmässiga beslut kan vara användbara till en en mängd olika saker. Exempelvis:
+\begin{itemize}
+	\item Ta fram en slumpmässig lösning på ett NP-hardproblem på
+	polynomisk tid genom att offra nogrannhet i svaret. Genom att studera
+	väntevärdet för vår slumpmässigt valda lösning och sedan jämföra det
+	med den korrekta lösningen kan vi få en uppfattning om hur svaret från
+	vår algoritm förhåller sig till det korrekta svaret.
 
-\subsection{Usefullness}
-by allowing rondomized decision, underlying model more powerful.
+	\item Reglera hur ofta processer som använder en delad resurs ska
+	försöka komma ut resursen utan att blockera någon annan.
+\end{itemize}
 
-Problems not solvable by deterministic algorithms may be solvable by randomized
-algorithms.
+\subsection{Contention resolution - Shared resource problem}
 
-Det som är nice med rand algo är att vi kan ta ett problem och hitta en lösning
-väldigt fort men ändå ha en hum om hur bra resultatet förhåller sig till den
-korrekta lösningen.
-
-Rando algo kan vara användbara även om problemet inte är NP-hard, rand kan lösa
-problem med mindre minne och ev snabbare än en deterministisk algoritm. I
-distribuerade system måste enheter komunicera mycket men med rand kan man
-förenkla det genom att minska mängden kommunikation och synkronisering. % TODO
-
-\subsection{Case study - Shared resource}
 \subsubsection{Problem}
 \begin{itemize}
-	\item Vi har $n$ processer och en gemensamm databas.
-	\item Alla processer vill komma åt databasen så ofta som  möjligt.
-	\item Databasen tillåter endast en process i taget.
+	\item Vi har $n$ processer och en gemensam databas.
 	\item Tiden är delad i rundor, diskret tid.
+	\item Databasen tillåter endast en process i varje runda.
+	\item Om två processer försöker komma åt databsen samtidigt låser de ute varandra.
+	\item Alla processer vill komma åt databasen så ofta som möjligt.
 	\item Processerna kan inte kommunicera med varandra.
-	\item Om två processer försöker komma åt databsen sammtidigt kommer de låsa
-		ute varandra.
 \end{itemize}
        
 Hur ska processerna bete sig för att öka chansen att de får använda databasen?
-\subsubsection{Designing a solution}
+
+\subsubsection{Algoritm}
 I början av varje runda försöker varje process med sannolikheten $p$ komma åt
-databasen. Detta är en enkel lösing och ska visa sig vara väldigt bra.
+databasen.
 
 \subsubsection{Analys av algoritmen}
 Vi vill ta reda på det optimala värdet på $p$. Det intuitiva fallet är $p =
 \frac{1}{n}$.
 
-Sannolikheten att en process för köra är $p \cdot P(<att inga andra processer
-forsoker anv.\ database>)$ eftersom dessa händelser är oberoende.
+Låt $A$ beskriva händelsen att en process försöker komma åt databasen. Sannolikheten för detta beskrivs då av $P(A) = p$. Sannolikheten för att en process \emph{inte} försöker komma åt databasen är således $P(\overline{A}) = 1 - p$. 
+
+Men vad vi egentligen bryr oss om är ifall en process lyckas med att komma åt databasen i en runda. Låt $S$ beskriva denna händelse. Eftersom en process lyckas komma åt databasen är likvärdigt med att just den och ingen annan process försökt och dessa händelser alla är oberoende blir sannolikheten för $S$ således:
 \begin{equation}
-	\mbox{Sannolikheten att en process lyckas} = p \cdot (1 - p)^{n - 1} = f(p)
+	P(S) = f(p) = p(1-p)^{n-1}
 \end{equation}
 
-Genom att derivera $f(p)$ och sätta till $0$ får man fram maximala värdret på
+Genom att derivera $f(p)$ och sätta till $0$ får man fram maximala värdet på
 $p$ vilket är $\frac{1}{n}$.
+
+
 
 Sannolikheten att en process lyckas
 \begin{equation}
