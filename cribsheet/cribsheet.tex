@@ -70,11 +70,12 @@ Sannolikheten att en process lyckas
 	\frac{1}{n})^{(n-1)} \geq \frac{1}{e}
 \end{equation}
 
-Sannolikheten att processen $i$ får köra i rundan $t$:
+Sannolikheten att processen $i$ får tillgång till databasen i rundan $t$:
 \begin{equation}
 	Pr(S(i,t)) = \frac{1}{n}(1 - \frac{1}{n})^{(n-1)}
 \end{equation}
-Sannolikheten att processen, $i$, inte får köra under $t$ rundor
+Sannolikheten att processen, $i$, inte får tillgång till databasen under $t$
+rundor
 \begin{equation}
 	Pr(F(i,t)) = (1 - Pr(S(i,t)))^t = (1 - \frac{1}{n}(1 -
 	\frac{1}{n})^{n-1})^t \leq (1 - \frac{1}{en})^t
@@ -82,8 +83,8 @@ Sannolikheten att processen, $i$, inte får köra under $t$ rundor
 
 Så om vi sätter $t = \lceil{}en\rceil$ så
 \begin{equation}
-	Pr(F(i,t)) \leq (1 - \frac{1}{en})^{\lceil{}en\rceil} \leq (1 - \frac{1}{en})^{en}
-	\leq \frac{1}{e}
+	Pr(F(i,t)) \leq (1 - \frac{1}{en})^{\lceil{}en\rceil} \leq (1 -
+	\frac{1}{en})^{en} \leq \frac{1}{e}
 \end{equation}
 Vilket betyder att sannolkheten att en process inte får tillgång till databasen
 under de första $en$ rundorna är mindre än $\frac{1}{e}$ ($O(1)$).
@@ -97,6 +98,29 @@ Om vi sätter $t = \lceil{}en\rceil \cdot (c\cdot{}ln(n))$
 Detta betyder att om tiden ökar $O(n\cdot{}log(n))$ är sannolikheten att en
 process inte har fått tillgång till databasen mycket liten och minskar med $n$,
 $O(\frac{1}{n})$.
+
+Slutligen tittar vi på hur många rundor som krävs för att sannolikheten att
+någon process inte har fått tillgång till databsen ska vara tillräckligt liten.
+Vi säger att algoritmen misslyckas efter $t$ rundor om någon process inte fått
+tillgång till databsen, $F_t$. Vi vill hitta ett litet $t$ för vilket $Pr(F_t)$
+är tillräckligt litet.
+
+Att någon process inte fått tillgång är unionen av att en given process inte
+fått tillgång för alla processer.
+\begin{equation}
+	F_t = \bigcup_{i=1}^nF(i,t) \leq \sum_{i=1}^nF(i,t)\mbox{, eftersom de inte
+	är oberoende}
+\end{equation}
+
+Om vi nu sätter $t = \lceil{}en\rceil \cdot 2\cdot{}ln(n)$, som tidigare men med $c = 2$
+\begin{equation}
+	F_t = \bigcup_{i=1}^nF(i,t) \leq \sum_{i=1}^nF(i,t) \leq n \cdot
+	\frac{1}{n^2} =\frac{1}{n} 
+\end{equation}
+
+Vi har nu visat att sannolikheten att alla processer har fått tillgång till
+databasen under de första $t = \lceil{}en\rceil \cdot 2\cdot{}ln(n)$ rundorna
+är större än $1 - \frac{1}{n}$, vilket är att betrakta som mycket stort.
 
 
 \section{Approximerarnde Algoritmer}
