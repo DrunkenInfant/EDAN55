@@ -51,7 +51,8 @@ I början av varje runda försöker varje process med sannolikheten $p$ komma å
 databasen. Detta är en enkel lösing och ska visa sig vara väldigt bra.
 
 \subsubsection{Analys av algoritmen}
-Vi vill ta reda på det optimala värdet på $p$. Det intuitiva fallet är $p = \frac{1}{n}$.
+Vi vill ta reda på det optimala värdet på $p$. Det intuitiva fallet är $p =
+\frac{1}{n}$.
 
 Sannolikheten att en process för köra är $p \cdot P(<att inga andra processer
 forsoker anv.\ database>)$ eftersom dessa händelser är oberoende.
@@ -79,13 +80,23 @@ Sannolikheten att processen, $i$, inte får köra under $t$ rundor
 	\frac{1}{n})^{n-1})^t \leq (1 - \frac{1}{en})^t
 \end{equation}
 
-Så om vi sätter $t = roof(en)$ så
+Så om vi sätter $t = \lceil{}en\rceil$ så
 \begin{equation}
-	Pr(F(i,t)) \leq (1 - \frac{1}{en})^{roof(en)} \leq (1 - \frac{1}{en})^{en} \leq
-	\frac{1}{e}
+	Pr(F(i,t)) \leq (1 - \frac{1}{en})^{\lceil{}en\rceil} \leq (1 - \frac{1}{en})^{en}
+	\leq \frac{1}{e}
 \end{equation}
 Vilket betyder att sannolkheten att en process inte får tillgång till databasen
-under de första $en$ rundorna är mindre än $\frac{1}{e}$.
+under de första $en$ rundorna är mindre än $\frac{1}{e}$ ($O(1)$).
+
+Om vi sätter $t = \lceil{}en\rceil \cdot (c\cdot{}ln(n))$
+\begin{equation}
+	Pr(F(i,t)) \leq (1 - \frac{1}{en})^{\lceil{}en\rceil \cdot (c\cdot{}ln(n))}
+	\leq ((1 - \frac{1}{en})^{en})^{c\cdot{}ln(n)} \leq
+	\frac{1}{e^{c\cdot{}ln(n)}} = \frac{1}{n^c}
+\end{equation}
+Detta betyder att om tiden ökar $O(n\cdot{}log(n))$ är sannolikheten att en
+process inte har fått tillgång till databasen mycket liten och minskar med $n$,
+$O(\frac{1}{n})$.
 
 
 \section{Approximerarnde Algoritmer}
