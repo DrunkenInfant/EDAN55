@@ -8,9 +8,11 @@ def create_prob(vertices, alpha)
 			prob_a[v.id][n.id] += alpha/v.neighbours.size
 		}
 	}
-	Matrix.rows(prob_a, false) + Matrix.rows(\
-		Array.new(vertices.size){ |i| Array.new(vertices.size) {|j| rand_prob } })
-			
+	Matrix.rows(prob_a, false) + Matrix.rows(
+		Array.new(vertices.size){ |i|
+			Array.new(vertices.size) {|j| rand_prob }
+		}
+	)
 end
 
 def pagerank_linalg(alpha, p, prob, r)
@@ -18,6 +20,6 @@ def pagerank_linalg(alpha, p, prob, r)
 	n.times {
 		prob *= prob
 	}
-	p*prob
+	(p*prob).to_a
 end
 
