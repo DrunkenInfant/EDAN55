@@ -1,5 +1,5 @@
 require 'set'
-require './graph.rb'
+require '../../lib/graph.rb'
 
 class InputReader
 	def self.read(fname)

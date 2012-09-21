@@ -1,5 +1,5 @@
 require 'set'
-require './graph.rb'
+require '../../lib/graph.rb'
 require './inputreader.rb'
 
 def r2(graph)
