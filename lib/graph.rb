@@ -1,3 +1,5 @@
+require 'Set'
+
 class Graph
 	def initialize()
 		@slist = Hash.new
