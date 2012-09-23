@@ -165,10 +165,17 @@ is\sidenote{Fill in the right values. Set $\alpha=\frac{85}{100}$.}
 \begin{equation*}
 P = 
 \left(
-\begin{array}{ccc}
-1 & 6 & \pi \\
-1 & 1/e & -2 \\
-1 & 1 & 0 \\
+\begin{array}{cccc}
+0.0375 & 0.6041 & 0.3208 & 0.0375 \\
+0.0375 & 0.0375 & 0.8875 & 0.0375 \\
+0.3208 & 0.3208 & 0.0375 & 0.3208 \\
+0.25 & 0.25 & 0.25 & 0.25 \\
+
+
+%1 & 6 & \pi \\
+%1 & 1/e & -2 \\
+%1 & 1 & 0 \\
+%1 & 1 & 0 \\
 \end{array}
 \right)\,,
 \end{equation*}
@@ -176,16 +183,46 @@ and its 10th power is
 \begin{equation*}
 P^{10} = 
 \left(
-\begin{array}{ccc}
-1 & 6 & \pi \\
-1 & 1/e & -2 \\
-1 & 1 & 0 \\
+\begin{array}{cccc}
+0.1784 & 0.2795 & 0.3635 & 0.1784 \\
+0.1784 & 0.2795 & 0.3636 & 0.1784 \\
+0.1784 & 0.2795 & 0.3635 & 0.1784 \\
+0.1784 & 0.2795 & 0.3635 & 0.1784 \\
+
+
+%1 & 6 & \pi \\
+%1 & 1/e & -2 \\
+%1 & 1 & 0 \\
+%1 & 1 & 0 \\
 \end{array}
 \right)\,.
 \end{equation*}
 
 The transition matrix $P$ can be broken down into  $P = \alpha(H + D)
 + \frac{1-\alpha}{n} \bf 1$, where $H =[\ldots]$ and $D =[\ldots]$.
+\begin{equation*}
+H = 
+\left(
+\begin{array}{cccc}
+0 & 0.6667 & 0.3333 & 0 \\
+0 & 0 & 1.0 & 0 \\
+0.3333 & 0.3333 & 0 & 0.3333 \\
+0 & 0 & 0 & 0 \\
+\end{array}
+\right)\,.
+\end{equation*}
+
+\begin{equation*}
+D = 
+\left(
+\begin{array}{cccc}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0.25 & 0.25 & 0.25 & 0.25 \\
+\end{array}
+\right)\,.
+\end{equation*}
 
 \subsection{Results}
 
@@ -197,10 +234,13 @@ each graph sorted by page rank, using $\alpha = \frac{85}{100}$.
 \small
 \begin{tabular}{lcccccccccc}
 three.txt & 2 (36.6\%) & 1 (27.5\%) & 0 (18.4\%) & 3 (17.3\%) \\
-tiny.txt & [\ldots] &\\
-medium.txt &\\
-wikipedia.txt & \\
-p2p-Gnutella08-mod.txt &
+tiny.txt & 0 (27.0\%) & 1 (25.9\%) & 3 (24.5\%) & 2 (14.9\%) & 4 (7.4\%) & \\
+medium.txt & 6 (5.8\%) & 22 (5.7\%) & 9 (3.9\%) & 13 (3.8\%) & 15 (3.8\%) & 23 (3.7\%) \\
+		   & 30 (3.4\%) & 34 (3.2\%) & 21 (3.1\%) & 28 (3.0\%) \\
+wikipedia.txt & 1 (40.0\%) & 2 (35.6\%) & 4 (6.4\%) & 3 (3.4\%) & 5 (3.4\%) & 0 (3.0\%) \\
+			  & 8 (1.5\%) & 7 (1.5\%) & 6 (1.5\%) & 9 (1.5\%) \\
+p2p-Gnutella08-mod.txt & 367 (0.23\%) & 249 (0.21\%) & 145 (0.20\%) & 264 (0.19\%) & 266 (0.19\%) \\
+					   & 123 (0.18\%) & 127 (0.18\%) & 122 (0.18\%) & 1317 (0.18\%) & 5 (0.18\%) \\
 \end{tabular}
 \end{fullwidth}
 

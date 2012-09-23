@@ -14,5 +14,5 @@ def simulate(vertices, alpha, iterations)
 			current_vertex = vertices.values.sample
 		end
 	}
-	vertices.values.map{ |v| v.visited.to_f/iterations}
+	vertices.values.sort {|v1,v2| v1.id <=> v2.id }.map{ |v| v.visited.to_f/iterations}
 end
