@@ -118,7 +118,6 @@ end
 
 def pagerank_linalg_sparse(alpha, p, h, d, n, r)
 	scale = (1 - alpha)/n
-	#diff = p
 	norm = 0
 	norm_last = 1
 	iters = 0
@@ -129,13 +128,10 @@ def pagerank_linalg_sparse(alpha, p, h, d, n, r)
 		p1 = multiply_ones_matrix(p, scale)
 		p = Array.new(n) { |i|
 			sum = ph[i] + pd[i] + p1[i]
-			#diff[i] = (p[i] / sum - 1).abs
 			norm += sum * sum
 			sum
 		}
 		norm = Math.sqrt(norm)
-		#diff.keep_if { |v| v >= 0.005 }
-		#if diff.empty?
 		if (norm - norm_last).abs <= 0.005
 			puts "iterations: #{iters}"
 			return p
