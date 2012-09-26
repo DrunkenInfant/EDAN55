@@ -22,21 +22,38 @@ class Collatz
 	end
 end
 
-max = 0
-distinct = Set.new
-iterations = 0
-1..ARGV[0].to_i.times{ |i|
-	coll = Collatz.new(i+1)
-	
-	while coll.has_next?
-		num = coll.next
-		if num > max
-			max = num
+def alg1()
+	max = 0
+	distinct = Set.new
+	iterations = 0
+	ARGV[0].to_i.times{ |i|
+		coll = Collatz.new(i+1)
+		while coll.has_next?
+			num = coll.next
+			if num > max
+				max = num
+			end
+			distinct.add(num)
+			iterations += 1
 		end
-		distinct.add(num)
-		iterations += 1
-	end
-}
-puts "Maximum value amongst numbers: #{max}"
-puts "Number of distinct numbers: #{distinct.size}"
-puts "Length of sequence: #{iterations}"
+	}
+	puts "Maximum value amongst numbers: #{max}"
+	puts "Number of distinct numbers: #{distinct.size}"
+	puts "Length of sequence: #{iterations}"
+end
+
+def alg2()
+	max = 0
+	ARGV[0].to_i.times{ |i|
+		coll = Collatz.new(i+1)
+		while coll.has_next?
+			num = coll.next
+			if num > max
+				max = num
+			end
+		end
+	}
+	puts "Maximum value amongst numbers: #{max}"
+end
+
+alg2()
