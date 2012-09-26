@@ -1,4 +1,5 @@
 require 'set'
+require 'algorithms'
 
 class Collatz
 	def initialize(current)
@@ -56,4 +57,24 @@ def alg2()
 	puts "Maximum value amongst numbers: #{max}"
 end
 
-alg2()
+def alg3()
+	pq = Containers::PriorityQueue.new
+	max = 0
+	ARGV[0].to_i.times{ |i|
+		coll = Collatz.new(i+1)
+		while coll.has_next?
+			x = coll.next
+			if x > max
+				max = x
+			end
+			xh = hash(x)
+			if pq.size < 256 and not pq.has_priority? xh
+				pq.push(x, xh)
+			elsif not pq.has_priority? xh and xh < pq.next
+				pq.pop
+				pq.push(x,xh)
+			end
+		end
+	}
+	(256*max)/pq.next
+end
