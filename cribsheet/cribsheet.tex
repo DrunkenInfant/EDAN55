@@ -124,12 +124,72 @@ databasen under de första $t = \lceil{}en\rceil \cdot 2\cdot{}ln(n)$ rundorna
 
 \section{Approximerarnde Algoritmer}
 
+\b{TODO intro, beskriv approx algs}
 Något om approximerande alogritmer.
 \begin{itemize}
 	\item Vad är en approximerarnde algoritm?
 	\item När använder man den?
 	\item Ett exempel.
 \end{itemize}
+
+\subsection{Greedy algorithms and bounds on the optimum: load balancing problem}
+blah blah blah\ldots
+
+\subsubsection{The problem}
+Vi har $m$ maskiner, $M_1, \ldots, M_m$ och $n$ jobb. VArje job $j$ tar tiden
+$t_j$. Vi vill hitta ett sätt att placera jobben på maskinerna så att lasten
+blir så balancerad som möjligt. Det vill säga att den längsta tiden en maskin
+kör ska vara så kort som möjligt.
+
+Varje mängd jobb som ges till maskin $M_i$ kallar vi för $A_i$. Då kommer
+maskinen $M_i$ behöva arbeta totalt tiden
+\begin{equation}
+	T_i = \sum_{j\in{}A_i} t_j
+\end{equation}
+
+och säger att detta är lasten på maskinen $M_i$. Vi vill minimera kvantiteten
+vi kallar för \emph{makespan}, vilket innebär att vi helt enkelt vill minimera
+den maximala lasten på alla maskiner, $T = max(T_1, \ldots, T_n)$. Detta problem är
+NP-hard.
+
+\subsubsection{Designing the algorithm}
+Vi går igenom input utan hänsyn till ordning. För varje jobb $j$ tilldelar vi
+$j$ till den maskin vars last är minst för tillfället.
+
+Denna algoritm producerar naturligtvis inte alltid det optimala \emph{makespan}'et utan lösningen vi får ut är helt beroende på i vilken ordning jobben kommer.
+
+\subsubsection{Analys av algoritmen}
+Låt $T$ beskriva vårt \emph{makespan}. Vi vill visa att $T$ inte är mycket
+större än den optimala lösningen $T*$. Detta ät inte helt trivialt då vi inte
+känner till och inte kan beräkna $T*$. Därför anvönder vi oss av ett
+\emph{lower bound} på den optimala lösningen. Dvs vi vill bestämma en undre
+gräns för värdet på $T*$ i det generella fallet.
+
+Det finns flera sätt att räkna ut \emph{lower bound}, en ide är att titta på
+den totala körtiden som är $\sum_{j} t_j$. En av maksinerna $M$ måste då utföra
+åtminstone $\frac{1}{m}$ av det totala arbetet och således får vi det optimala
+\emph{makespan}'et till åtminstone
+\begin{equation}
+	T* \geq \frac{1}{m} \sum_j t_j
+\end{equation}
+
+Det finns däremot ett specialfall där detta \emph{lower bound} inte är
+tillräckligt bra. Färställ att vi har ett jobb som är extremt långt relativt
+summan av de andra jobben. Den optimala lösningen nör sätta detta långa jobb på
+en egen maskin, i detta fallet skulle vår greedy algoritm producera en optimal
+lösning men vårt \emph{lower bound} är inte tillräckligt starkt för att täcka
+in detta. Därför måste vi utöka med följande \emph{lower bound}
+\begin{equation}
+	T* \geq max_j t_j
+\end{equation}
+
+Slutligen kan vi bevisa att vår algoritm greedy balance kommer att ha ett
+\emph{makespan} $T \leq 2T*$.
+
+Beviset överlåtes som en övning för läsaren.
+
+Fortsättning på s. 603 till slutet på kap 11.1.
+
 
 \section{Komplexitet}
 Hur man beräknar komplexitet.
