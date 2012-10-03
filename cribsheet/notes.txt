@@ -1,0 +1,3 @@
+Frågor om tentan:
+* Ska vi kunna bevisa algoritmers korrekthet.
+* Ska vi kunna bevisa approx algs resultat bound.

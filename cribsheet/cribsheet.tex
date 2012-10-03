@@ -1,0 +1,198 @@
+\documentclass[a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
+\begin{document}
+
+\section{Kapitel 13.1-13.2 - Randomized Algorithms}
+
+Det finns två typer av randomiserade algoritmer:
+\begin{itemize}
+	\item Traditionella algoritmer som får slumpmässig input. Detta brukar kallas \emph{average-case analysis} eftersom man är intresserad av hur algoritmer presterar i medel istället för att som vanligt studera worst case input.
+	\item Algoritmer som tar slumpmässiga beslut för att lösa problem med worst case input.
+\end{itemize}
+
+Det är denna andra typ av randomized algoritm vi kommer att diskutera.
+
+\subsection{Användbarhet}
+Algoritmer som tar slumpmässiga beslut kan vara användbara till en en mängd olika saker. Exempelvis:
+\begin{itemize}
+	\item Ta fram en slumpmässig lösning på ett NP-hardproblem på
+	polynomisk tid genom att offra nogrannhet i svaret. Genom att studera
+	väntevärdet för vår slumpmässigt valda lösning och sedan jämföra det
+	med den korrekta lösningen kan vi få en uppfattning om hur svaret från
+	vår algoritm förhåller sig till det korrekta svaret.
+
+	\item Reglera hur ofta processer som använder en delad resurs ska
+	försöka komma ut resursen utan att blockera någon annan.
+\end{itemize}
+
+\subsection{Contention resolution - Shared resource problem}
+
+\subsubsection{Problem}
+\begin{itemize}
+	\item Vi har $n$ processer och en gemensam databas.
+	\item Tiden är delad i rundor, diskret tid.
+	\item Databasen tillåter endast en process i varje runda.
+	\item Om två processer försöker komma åt databsen samtidigt låser de ute varandra.
+	\item Alla processer vill komma åt databasen så ofta som möjligt.
+	\item Processerna kan inte kommunicera med varandra.
+\end{itemize}
+       
+Hur ska processerna bete sig för att öka chansen att de får använda databasen?
+
+\subsubsection{Algoritm}
+I början av varje runda försöker varje process med sannolikheten $p$ komma åt
+databasen.
+
+\subsubsection{Analys av algoritmen}
+Vi vill ta reda på det optimala värdet på $p$. Det intuitiva fallet är $p =
+\frac{1}{n}$.
+
+Låt $A$ beskriva händelsen att en process försöker komma åt databasen. Sannolikheten för detta beskrivs då av $P(A) = p$. Sannolikheten för att en process \emph{inte} försöker komma åt databasen är således $P(\overline{A}) = 1 - p$. 
+
+Men vad vi egentligen bryr oss om är ifall en process lyckas med att komma åt databasen i en runda. Låt $S$ beskriva denna händelse. Eftersom en process lyckas komma åt databasen är likvärdigt med att just den och ingen annan process försökt och dessa händelser alla är oberoende blir sannolikheten för $S$ således:
+\begin{equation}
+	P(S) = f(p) = p(1-p)^{n-1}
+\end{equation}
+
+Genom att derivera $f(p)$ och sätta till $0$ får man fram maximala värdet på
+$p$ vilket är $\frac{1}{n}$.
+
+
+
+Sannolikheten att en process lyckas
+\begin{equation}
+	f(\frac{1}{n}) = \frac{1}{n} \cdot (1 - \frac{1}{n})^{(n-1)} \geq
+	\frac{1}{n} \cdot \frac{1}{e} \leq \frac{1}{2n}\mbox{, eftersom} (1 -
+	\frac{1}{n})^{(n-1)} \geq \frac{1}{e}
+\end{equation}
+
+Sannolikheten att processen $i$ får tillgång till databasen i rundan $t$:
+\begin{equation}
+	Pr(S(i,t)) = \frac{1}{n}(1 - \frac{1}{n})^{(n-1)}
+\end{equation}
+Sannolikheten att processen, $i$, inte får tillgång till databasen under $t$
+rundor
+\begin{equation}
+	Pr(F(i,t)) = (1 - Pr(S(i,t)))^t = (1 - \frac{1}{n}(1 -
+	\frac{1}{n})^{n-1})^t \leq (1 - \frac{1}{en})^t
+\end{equation}
+
+Så om vi sätter $t = \lceil{}en\rceil$ så
+\begin{equation}
+	Pr(F(i,t)) \leq (1 - \frac{1}{en})^{\lceil{}en\rceil} \leq (1 -
+	\frac{1}{en})^{en} \leq \frac{1}{e}
+\end{equation}
+Vilket betyder att sannolkheten att en process inte får tillgång till databasen
+under de första $en$ rundorna är mindre än $\frac{1}{e}$ ($O(1)$).
+
+Om vi sätter $t = \lceil{}en\rceil \cdot (c\cdot{}ln(n))$
+\begin{equation}
+	Pr(F(i,t)) \leq (1 - \frac{1}{en})^{\lceil{}en\rceil \cdot (c\cdot{}ln(n))}
+	\leq ((1 - \frac{1}{en})^{en})^{c\cdot{}ln(n)} \leq
+	\frac{1}{e^{c\cdot{}ln(n)}} = \frac{1}{n^c}
+\end{equation}
+Detta betyder att om tiden ökar $O(n\cdot{}log(n))$ är sannolikheten att en
+process inte har fått tillgång till databasen mycket liten och minskar med $n$,
+$O(\frac{1}{n})$.
+
+Slutligen tittar vi på hur många rundor som krävs för att sannolikheten att
+någon process inte har fått tillgång till databsen ska vara tillräckligt liten.
+Vi säger att algoritmen misslyckas efter $t$ rundor om någon process inte fått
+tillgång till databsen, $F_t$. Vi vill hitta ett litet $t$ för vilket $Pr(F_t)$
+är tillräckligt litet.
+
+Att någon process inte fått tillgång är unionen av att en given process inte
+fått tillgång för alla processer.
+\begin{equation}
+	F_t = \bigcup_{i=1}^nF(i,t) \leq \sum_{i=1}^nF(i,t)\mbox{, eftersom de inte
+	är oberoende}
+\end{equation}
+
+Om vi nu sätter $t = \lceil{}en\rceil \cdot 2\cdot{}ln(n)$, som tidigare men med $c = 2$
+\begin{equation}
+	F_t = \bigcup_{i=1}^nF(i,t) \leq \sum_{i=1}^nF(i,t) \leq n \cdot
+	\frac{1}{n^2} =\frac{1}{n} 
+\end{equation}
+
+Vi har nu visat att sannolikheten att alla processer har fått tillgång till
+databasen under de första $t = \lceil{}en\rceil \cdot 2\cdot{}ln(n)$ rundorna
+är större än $1 - \frac{1}{n}$, vilket är att betrakta som mycket stort.
+
+
+\section{Approximerarnde Algoritmer}
+
+\b{TODO intro, beskriv approx algs}
+Något om approximerande alogritmer.
+\begin{itemize}
+	\item Vad är en approximerarnde algoritm?
+	\item När använder man den?
+	\item Ett exempel.
+\end{itemize}
+
+\subsection{Greedy algorithms and bounds on the optimum: load balancing problem}
+blah blah blah\ldots
+
+\subsubsection{The problem}
+Vi har $m$ maskiner, $M_1, \ldots, M_m$ och $n$ jobb. VArje job $j$ tar tiden
+$t_j$. Vi vill hitta ett sätt att placera jobben på maskinerna så att lasten
+blir så balancerad som möjligt. Det vill säga att den längsta tiden en maskin
+kör ska vara så kort som möjligt.
+
+Varje mängd jobb som ges till maskin $M_i$ kallar vi för $A_i$. Då kommer
+maskinen $M_i$ behöva arbeta totalt tiden
+\begin{equation}
+	T_i = \sum_{j\in{}A_i} t_j
+\end{equation}
+
+och säger att detta är lasten på maskinen $M_i$. Vi vill minimera kvantiteten
+vi kallar för \emph{makespan}, vilket innebär att vi helt enkelt vill minimera
+den maximala lasten på alla maskiner, $T = max(T_1, \ldots, T_n)$. Detta problem är
+NP-hard.
+
+\subsubsection{Designing the algorithm}
+Vi går igenom input utan hänsyn till ordning. För varje jobb $j$ tilldelar vi
+$j$ till den maskin vars last är minst för tillfället.
+
+Denna algoritm producerar naturligtvis inte alltid det optimala \emph{makespan}'et utan lösningen vi får ut är helt beroende på i vilken ordning jobben kommer.
+
+\subsubsection{Analys av algoritmen}
+Låt $T$ beskriva vårt \emph{makespan}. Vi vill visa att $T$ inte är mycket
+större än den optimala lösningen $T*$. Detta ät inte helt trivialt då vi inte
+känner till och inte kan beräkna $T*$. Därför anvönder vi oss av ett
+\emph{lower bound} på den optimala lösningen. Dvs vi vill bestämma en undre
+gräns för värdet på $T*$ i det generella fallet.
+
+Det finns flera sätt att räkna ut \emph{lower bound}, en ide är att titta på
+den totala körtiden som är $\sum_{j} t_j$. En av maksinerna $M$ måste då utföra
+åtminstone $\frac{1}{m}$ av det totala arbetet och således får vi det optimala
+\emph{makespan}'et till åtminstone
+\begin{equation}
+	T* \geq \frac{1}{m} \sum_j t_j
+\end{equation}
+
+Det finns däremot ett specialfall där detta \emph{lower bound} inte är
+tillräckligt bra. Färställ att vi har ett jobb som är extremt långt relativt
+summan av de andra jobben. Den optimala lösningen nör sätta detta långa jobb på
+en egen maskin, i detta fallet skulle vår greedy algoritm producera en optimal
+lösning men vårt \emph{lower bound} är inte tillräckligt starkt för att täcka
+in detta. Därför måste vi utöka med följande \emph{lower bound}
+\begin{equation}
+	T* \geq max_j t_j
+\end{equation}
+
+Slutligen kan vi bevisa att vår algoritm greedy balance kommer att ha ett
+\emph{makespan} $T \leq 2T*$.
+
+Beviset överlåtes som en övning för läsaren.
+
+Fortsättning på s. 603 till slutet på kap 11.1.
+
+
+\section{Komplexitet}
+Hur man beräknar komplexitet.
+
+\end{document}
+
